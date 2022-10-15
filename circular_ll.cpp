@@ -2,55 +2,57 @@
 #include<iostream>
 using namespace std;
 
+template<class T>
 class node{
-    int data;
-    node* next;
+    T data;
+    node<T>* next;
     public:
     node(){
        
         this->next=NULL;
     }
-    node(int data,node*next=NULL){
+    node(T data,node<T>*next=NULL){
         this->data=data;
         this->next=next;
     }
     ~node(){
         next=NULL;
     }
-    friend class circularlist;
+    template<class U>friend class circularlist;
 };
 
+template<class T>
 class circularlist{
-    node*tail;
+    node<T>*tail;
     public:
     circularlist(){
         tail=NULL;
     }
-    circularlist(int data){
+    circularlist(T data){
         tail->data=data;
         tail->next=tail;
     }
 
     // add at begin
-    void addatbegin(int data){
+    void addatbegin(T data){
         if(tail==NULL){
-            tail=new node(data);
+            tail=new node<T>(data);
             tail->next=tail;
             return;
         }
-        node*temp=new node(data);
+        node<T>*temp=new node<T>(data);
         temp->next=tail->next;
         tail->next=temp;
     }
 
     // add at end
-    void addatend(int data){
+    void addatend(T data){
         if(tail==NULL){
-            tail=new node(data);
+            tail=new node<T>(data);
             tail->next=tail;
             return;
         }
-        node*temp=new node(data);
+        node<T>*temp=new node<T>(data);
         temp->next=tail->next;
         tail->next=temp;
         tail=temp;
@@ -62,7 +64,7 @@ class circularlist{
             cout<<"Empty list"<<endl;
             return;
         }
-        node*temp=tail->next;
+        node<T>*temp=tail->next;
         while(temp!=tail){
             cout<<temp->data<<" ";
             temp=temp->next;
@@ -77,7 +79,7 @@ class circularlist{
             return 0;
         }
         int ans=1;
-        node*temp=tail->next;
+        node<T>*temp=tail->next;
         while(temp!=tail){
             ans++;
             temp=temp->next;
@@ -86,7 +88,7 @@ class circularlist{
     }
 
     // add at position
-    void addatpos(int data,int i){
+    void addatpos(T data,int i){
         if(tail==NULL){
             cout<<"Empty list"<<endl;
             return ;
@@ -100,8 +102,8 @@ class circularlist{
             return;
         }
         int n=1;
-        node*temp=new node(data);
-        node*track=tail->next;
+        node<T>*temp=new node<T>(data);
+        node<T>*track=tail->next;
         while(track!=tail && n<(i-1)){
             track=track->next;
             n++;
@@ -122,7 +124,7 @@ class circularlist{
     }
 
     // add after postion
-    void addafterpos(int data,int i){
+    void addafterpos(T data,int i){
         if(tail==NULL){
             cout<<"Empty list"<<endl;
             return;
@@ -145,8 +147,8 @@ class circularlist{
             return;
         }
         int cnt=1;
-        node*temp=new node(data);
-        node*track=tail->next;
+        node<T>*temp=new node<T>(data);
+        node<T>*track=tail->next;
         while(track!=tail && cnt<i){
             cnt++;
             track=track->next;
@@ -167,7 +169,7 @@ class circularlist{
     }
 
     // add before postion
-    void addbeforepos(int data,int i){
+    void addbeforepos(T data,int i){
         if(tail==NULL){
             cout<<"Empty list"<<endl;
             return;
@@ -184,9 +186,9 @@ class circularlist{
             cout<<"Not allowed"<<endl;
             return;
         }
-        node*temp=new node(data);
+        node<T>*temp=new node<T>(data);
         int cnt=1;
-        node*track=tail->next;
+        node<T>*track=tail->next;
         while(track!=tail && cnt<(i-1)){
             track=track->next;
             cnt++;
@@ -205,13 +207,13 @@ class circularlist{
     }
 
     // add at key
-    void addatkey(int data , int key){
+    void addatkey(T data , T key){
         if(tail==NULL){
             cout<<"List empty"<<endl;
             return;
         }
      
-        node*temp=tail->next;
+        node<T>*temp=tail->next;
         while(temp!=tail && temp->data!=key){
             temp=temp->next;
         }
@@ -224,14 +226,14 @@ class circularlist{
     }
 
     // add after a key in the list
-    void addafterkey(int data,int key){
+    void addafterkey(T data,T key){
         if(tail==NULL ){
             cout<<"List empty"<<endl;
             return;
         }
         
-        node*temp=tail->next;
-        node*toadd=new node(data);
+        node<T>*temp=tail->next;
+        node<T>*toadd=new node<T>(data);
         while(temp!=tail && temp->data!=key){
             temp=temp->next;
 
@@ -249,7 +251,7 @@ class circularlist{
 
     }
     // add before key
-    void addbeforekey(int data,int key){
+    void addbeforekey(T data,T key){
         if(tail==NULL){
             cout<<"List empty"<<endl;
             return;
@@ -258,9 +260,9 @@ class circularlist{
             addatbegin(data);
             return;
         }
-        node*toadd=new node(data);
-        node*temp=tail->next;
-        node*prev=NULL;
+        node<T>*toadd=new node<T>(data);
+        node<T>*temp=tail->next;
+        node<T>*prev=NULL;
         while(temp!=tail && temp->data!=key){
             prev=temp;
             temp=temp->next;
@@ -273,7 +275,7 @@ class circularlist{
             addatbegin(data);
             return;
         }
-        prev->next=new node(data);
+        prev->next=new node<T>(data);
         prev->next->next=temp;
         return;
     }
@@ -287,13 +289,13 @@ class circularlist{
             return;
         }
         if(tail->next==tail){
-            node*temp=tail;
+            node<T>*temp=tail;
             delete temp;
             tail=NULL;
             return;
 
         }
-        node*temp=tail->next;
+        node<T>*temp=tail->next;
         tail->next=temp->next;
         delete temp;
         
@@ -307,20 +309,20 @@ class circularlist{
             return;
         }
         if(tail->next==tail){
-            node*temp=tail;
+            node<T>*temp=tail;
             delete temp;
             tail=NULL;
             return;
 
         }
-        node*temp=tail->next;
+        node<T>*temp=tail->next;
       
         while(temp->next!=tail){
         
             temp=temp->next;
         }
         temp->next=tail->next;
-        node*temp2=tail;
+        node<T>*temp2=tail;
         tail=temp;
         delete temp2;
         
@@ -334,8 +336,8 @@ class circularlist{
             return;
         }
         int cnt=1;
-        node*temp=tail->next;
-        node*prev=NULL;
+        node<T>*temp=tail->next;
+        node<T>*prev=NULL;
         while(temp!=tail && cnt<i){
             prev=temp;
             temp=temp->next;
@@ -369,8 +371,8 @@ class circularlist{
             cout<<"not allowed"<<endl;
             return;
         }
-        node*temp=tail->next;
-        node*prev=NULL;
+        node<T>*temp=tail->next;
+        node<T>*prev=NULL;
         int cnt=1;
         while(temp!=tail && cnt<i-1){
             cnt++;
@@ -406,8 +408,8 @@ class circularlist{
             return;
         }
         int cnt=1;
-        node*prev=tail->next;
-        node*temp=prev->next;
+        node<T>*prev=tail->next;
+        node<T>*temp=prev->next;
 
         while(prev!=tail && cnt<i){
              cnt++;
@@ -428,7 +430,7 @@ class circularlist{
     }
 
     // delete a key
-    void deleteatkey(int key){
+    void deleteatkey(T key){
         if(tail==NULL){
             cout<<"Empty list"<<endl;
             return;
@@ -437,8 +439,8 @@ class circularlist{
             deleteatbegin();
             return;
         }
-        node*prev=NULL;
-        node*temp=tail->next;
+        node<T>*prev=NULL;
+        node<T>*temp=tail->next;
         while(temp!=tail && temp->data!=key){
             prev=temp;
             temp=temp->next;
@@ -462,7 +464,7 @@ class circularlist{
     }
 
     // delete node before key
-    void deletebeforekey(int key){
+    void deletebeforekey(T key){
         if(tail==NULL){
             cout<<"Empty list"<<endl;
             return;
@@ -471,8 +473,8 @@ class circularlist{
             cout<<"Single node in list"<<endl;
             return;
         }
-        node*prev=NULL;
-        node*temp=tail->next;
+        node<T>*prev=NULL;
+        node<T>*temp=tail->next;
         while(temp!=tail && temp->next->data!=key){
             prev=temp;
             temp=temp->next;
@@ -492,13 +494,13 @@ class circularlist{
     }
 
     // delete after key
-    void deleteafterkey(int key){
+    void deleteafterkey(T key){
         if(tail==NULL){
             cout<<"Empty list"<<endl;
             return;
         }
-        node*temp=tail->next;
-        node*next=temp->next;
+        node<T>*temp=tail->next;
+        node<T>*next=temp->next;
         while(next!=tail && temp->data!=key){
             temp=next;
             next=next->next;
@@ -517,9 +519,9 @@ class circularlist{
 
     
     // func to create an ordered CLL
-    void createoredered(int data){
+    void createoredered(T data){
         if(tail==NULL){
-            tail=new node(data);
+            tail=new node<T>(data);
             tail->next=tail;
             return;
         }
@@ -527,8 +529,8 @@ class circularlist{
             addatend(data);
             return;
         }
-        node*toadd=new node(data);
-        node*temp=tail->next;
+        node<T>*toadd=new node<T>(data);
+        node<T>*temp=tail->next;
         while(temp->next->data<data){
             temp=temp->next;
         }
@@ -552,8 +554,8 @@ class circularlist{
         }
          int n=length();
          for(int i=0;i<n-1;i++){
-            node*p=tail->next;
-            node*q=p->next;
+            node<T>*p=tail->next;
+            node<T>*q=p->next;
             for(int j=0;j<n-i-1;j++){
                 if(p->data > q->data){
                     swap(p->data , q->data);
@@ -573,9 +575,9 @@ class circularlist{
             cout<<"only one element"<<endl;
             return;
         }
-        node*temp=tail->next;
+        node<T>*temp=tail->next;
         while(temp!=tail){
-            node*q=temp->next;
+            node<T>*q=temp->next;
             while(q!=tail->next){
                 if(temp->data > q->data){
                     swap(temp->data , q->data);
@@ -597,11 +599,11 @@ class circularlist{
            cout<<"only 1 element"<<endl;
            return;
        }
-       node*ori=tail->next;
-       node*prev=tail;
-       node*curr=prev->next;
+       node<T>*ori=tail->next;
+       node<T>*prev=tail;
+       node<T>*curr=prev->next;
        while(curr!=tail){
-           node*temp=curr->next;
+           node<T>*temp=curr->next;
            curr->next=prev;
            prev=curr;
            curr=temp;
@@ -617,7 +619,7 @@ class circularlist{
            tail=a.tail;
            return;
        }
-       node*ori=tail->next;
+       node<T>*ori=tail->next;
        tail->next=a.tail->next;
        a.tail->next=ori;
        tail=a.tail;
@@ -635,8 +637,8 @@ class circularlist{
        }
        bubblesort();
        a.bubblesort();
-       node*p=tail->next;
-       node*q=a.tail->next;
+       node<T>*p=tail->next;
+       node<T>*q=a.tail->next;
        circularlist ans;
        while(p!=tail && q!=a.tail){
            if(p->data < q->data){
@@ -693,8 +695,29 @@ class circularlist{
 
 
 int main(){
-    circularlist obj1;
-    circularlist obj2;
+    cout<<"Which data type do you want to workupon :- "<<endl;
+    cout<<"1.Integers"<<endl;
+    cout<<"2.Characters"<<endl;
+    cout<<"3.Boolean"<<endl;
+    cout<<"4.Double"<<endl;
+    
+    int dt;
+    cin>>dt;
+    
+    
+
+    circularlist<int> obj1;
+    circularlist<int> obj2;
+    circularlist<char> obj3;
+    circularlist<char> obj4;
+    circularlist<double> obj5;
+    circularlist<double> obj6;
+    circularlist<bool> obj7;
+    circularlist<bool> obj8;
+    
+    
+    
+   
     bool flag=true;
     while(flag){
         int n;
@@ -724,84 +747,326 @@ int main(){
                 cout<<"Which operation you wish to perform"<<endl;
                 cin>>n1;
                 if(n1==1){
-                    int ele;
                     cout<<"Enter the element you wish to add";
-                    cin>>ele;
-                    obj1.addatbegin(ele);
-                    obj1.display();
+                    if(dt==1){
+                            int ele;
+                            cin>>ele;
+                            obj1.addatbegin(ele);
+                            obj1.display();
+                    }
+                    else if(dt==2){
+                            char ele;
+                            cin>>ele;
+                            obj3.addatbegin(ele);
+                            obj3.display();
+                    }
+                    else if(dt==3){
+                            double ele;
+                            cin>>ele;
+                            obj5.addatbegin(ele);
+                            obj5.display();
+                    }
+                    else if(dt==4){
+                        bool ele;
+                            cin>>ele;
+                            obj7.addatbegin(ele);
+                            obj7.display();
+                    }
+                    
                 }
                 else if(n1==2){
-                    int ele;
-                    cout<<"Enter the element you wish to add";
-                    cin>>ele;
-                    obj1.addatend(ele);
-                    obj1.display();
+                   cout<<"Enter the element you wish to add";
+                    if(dt==1){
+                         int ele;
+                        cin>>ele;
+                        obj1.addatend(ele);
+                        obj1.display();
+                    
+                    }
+                    else if(dt==2){
+                         char ele;
+                        cin>>ele;
+                        obj3.addatend(ele);
+                        obj3.display();
+                    }
+                    else if(dt==3){
+                         double ele;
+                        cin>>ele;
+                        obj5.addatend(ele);
+                        obj5.display();
+                    }
+                    else if(dt==4){
+                         bool ele;
+                        cin>>ele;
+                        obj7.addatend(ele);
+                        obj7.display();
+                    }
+                   
                 }
                 else if(n1==3){
-                    int pos;
-                    int ele;
                     cout<<"Enter the element you wish to add"<<endl;
-                    cin>>ele;
-                    cout<<"enter the position at which you wish to add"<<endl;
-                    cin>>pos;
+                   
                     
-                    obj1.addatpos(ele,pos);
-                    obj1.display();
+                    if(dt==1){
+                        int ele;
+                        cin>>ele;
+                        int pos;
+                        cout<<"enter the position at which you wish to add"<<endl;
+                        cin>>pos;
+                        obj1.addatpos(ele,pos);
+                        obj1.display();
+                    
+                    }
+                    else if(dt==2){
+                         char ele;
+                        cin>>ele;
+                        int pos;
+                        cout<<"enter the position at which you wish to add"<<endl;
+                        cin>>pos;
+                        obj3.addatpos(ele,pos);
+                        obj3.display();
+                    }
+                    else if(dt==3){
+                         double ele;
+                        cin>>ele;
+                        int pos;
+                        cout<<"enter the position at which you wish to add"<<endl;
+                        cin>>pos;
+                        obj5.addatpos(ele,pos);
+                        obj5.display();
+                    }
+                    else if(dt==4){
+                         bool ele;
+                        cin>>ele;
+                        int pos;
+                        cout<<"enter the position at which you wish to add"<<endl;
+                        cin>>pos;
+                        obj7.addatpos(ele,pos);
+                        obj7.display();
+                    }
                 }
                 else if(n1==4){
-                    int pos;
-                    int ele;
                     cout<<"Enter the element you wish to add"<<endl;
-                    cin>>ele;
-                    cout<<"enter the position before which you wish to add"<<endl;
-                    cin>>pos;
+                   
                     
-                    obj1.addbeforepos(ele,pos);
-                    obj1.display();
+                    if(dt==1){
+                        int ele;
+                        cin>>ele;
+                        int pos;
+                        cout<<"enter the position at which you wish to add"<<endl;
+                        cin>>pos;
+                        obj1.addbeforepos(ele,pos);
+                        obj1.display();
+                    
+                    }
+                    else if(dt==2){
+                        char ele;
+                        cin>>ele;
+                        int pos;
+                        cout<<"enter the position at which you wish to add"<<endl;
+                        cin>>pos;
+                        obj3.addbeforepos(ele,pos);
+                        obj3.display();
+                    }
+                    else if(dt==3){
+                        double ele;
+                        cin>>ele;
+                        int pos;
+                        cout<<"enter the position at which you wish to add"<<endl;
+                        cin>>pos;
+                        obj5.addbeforepos(ele,pos);
+                        obj5.display();
+                    }
+                    else if(dt==4){
+                        bool ele;
+                        cin>>ele;
+                        int pos;
+                        cout<<"enter the position at which you wish to add"<<endl;
+                        cin>>pos;
+                        obj7.addbeforepos(ele,pos);
+                        obj7.display();
+                    }
                 }
                 else if(n1==5){
-                    int pos;
-                    int ele;
                     cout<<"Enter the element you wish to add"<<endl;
-                    cin>>ele;
-                    cout<<"enter the position after which you wish to add"<<endl;
-                    cin>>pos;
+                   
                     
-                    obj1.addafterpos(ele,pos);
-                    obj1.display();
+                    if(dt==1){
+                        int ele;
+                        cin>>ele;
+                        int pos;
+                        cout<<"enter the position at which you wish to add"<<endl;
+                        cin>>pos;
+                        obj1.addafterpos(ele,pos);
+                        obj1.display();
+                    
+                    }
+                    else if(dt==2){
+                        char ele;
+                        cin>>ele;
+                        int pos;
+                        cout<<"enter the position at which you wish to add"<<endl;
+                        cin>>pos;
+                        obj3.addafterpos(ele,pos);
+                        obj3.display();
+                    }
+                    else if(dt==3){
+                        double ele;
+                        cin>>ele;
+                        int pos;
+                        cout<<"enter the position at which you wish to add"<<endl;
+                        cin>>pos;
+                        obj5.addafterpos(ele,pos);
+                        obj5.display();
+                    }
+                    else if(dt==4){
+                        bool ele;
+                        cin>>ele;
+                        int pos;
+                        cout<<"enter the position at which you wish to add"<<endl;
+                        cin>>pos;
+                        obj7.addafterpos(ele,pos);
+                        obj7.display();
+                    }
                 }
                 else if(n1==6){
-                    int key;
-                    int ele;
-                    cout<<"Enter the element you wish to add"<<endl;
-                    cin>>ele;
-                    cout<<"enter the element at which you wish to add"<<endl;
-                    cin>>key;
+                     if(dt==1){
+                        int key;
+                        int ele;
+                        cout<<"Enter the element you wish to add"<<endl;
+                        cin>>ele;
+                        cout<<"enter the element at which you wish to add"<<endl;
+                        cin>>key;
+                        
+                        obj1.addatkey(ele,key);
+                        obj1.display();
                     
-                    obj1.addatkey(ele,key);
-                    obj1.display();
+                    }
+                    else if(dt==2){
+                         char key;
+                        char ele;
+                        cout<<"Enter the element you wish to add"<<endl;
+                        cin>>ele;
+                        cout<<"enter the element at which you wish to add"<<endl;
+                        cin>>key;
+                        
+                        obj3.addatkey(ele,key);
+                        obj3.display();
+                    }
+                    else if(dt==3){
+                         double key;
+                        double ele;
+                        cout<<"Enter the element you wish to add"<<endl;
+                        cin>>ele;
+                        cout<<"enter the element at which you wish to add"<<endl;
+                        cin>>key;
+                        
+                        obj5.addatkey(ele,key);
+                        obj5.display();
+                    }
+                    else if(dt==4){
+                         bool key;
+                        bool ele;
+                        cout<<"Enter the element you wish to add"<<endl;
+                        cin>>ele;
+                        cout<<"enter the element at which you wish to add"<<endl;
+                        cin>>key;
+                        
+                        obj7.addatkey(ele,key);
+                        obj7.display();
+                    }
                 }
                 else if(n1==7){
-                    int key;
-                    int ele;
-                    cout<<"Enter the element you wish to add"<<endl;
-                    cin>>ele;
-                    cout<<"enter the element before which you wish to add"<<endl;
-                    cin>>key;
-                 
-                    obj1.addbeforekey(ele,key);
-                    obj1.display();
+                   if(dt==1){
+                         int key;
+                        int ele;
+                        cout<<"Enter the element you wish to add"<<endl;
+                        cin>>ele;
+                        cout<<"enter the element before which you wish to add"<<endl;
+                        cin>>key;
+                     
+                        obj1.addbeforekey(ele,key);
+                        obj1.display();
+                    }
+                    else if(dt==2){
+                        char key;
+                        char ele;
+                        cout<<"Enter the element you wish to add"<<endl;
+                        cin>>ele;
+                        cout<<"enter the element before which you wish to add"<<endl;
+                        cin>>key;
+                     
+                        obj3.addbeforekey(ele,key);
+                        obj3.display();
+                    }
+                    else if(dt==3){
+                         double key;
+                        double ele;
+                        cout<<"Enter the element you wish to add"<<endl;
+                        cin>>ele;
+                        cout<<"enter the element before which you wish to add"<<endl;
+                        cin>>key;
+                     
+                        obj5.addbeforekey(ele,key);
+                        obj5.display();
+                    }
+                    else if(dt==4){
+                         bool key;
+                        bool ele;
+                        cout<<"Enter the element you wish to add"<<endl;
+                        cin>>ele;
+                        cout<<"enter the element before which you wish to add"<<endl;
+                        cin>>key;
+                     
+                        obj7.addbeforekey(ele,key);
+                        obj7.display();
+                    }
                 }
                 else if(n1==8){
-                    int key;
-                    int ele;
-                    cout<<"Enter the element you wish to add"<<endl;
-                    cin>>ele;
-                    cout<<"enter the element after which you wish to add"<<endl;
-                    cin>>key;
-                    
-                    obj1.addafterkey(ele,key);
-                    obj1.display();
+                   if(dt==1){
+                        int key;
+                        int ele;
+                        cout<<"Enter the element you wish to add"<<endl;
+                        cin>>ele;
+                        cout<<"enter the element after which you wish to add"<<endl;
+                        cin>>key;
+                        
+                        obj1.addafterkey(ele,key);
+                        obj1.display();
+                    }
+                    else if(dt==2){
+                        char key;
+                        char ele;
+                        cout<<"Enter the element you wish to add"<<endl;
+                        cin>>ele;
+                        cout<<"enter the element after which you wish to add"<<endl;
+                        cin>>key;
+                        
+                        obj3.addafterkey(ele,key);
+                        obj3.display();
+                    }
+                    else if(dt==3){
+                        double key;
+                        double ele;
+                        cout<<"Enter the element you wish to add"<<endl;
+                        cin>>ele;
+                        cout<<"enter the element after which you wish to add"<<endl;
+                        cin>>key;
+                        
+                        obj5.addafterkey(ele,key);
+                        obj5.display();
+                    }
+                    else if(dt==4){
+                        bool key;
+                        bool ele;
+                        cout<<"Enter the element you wish to add"<<endl;
+                        cin>>ele;
+                        cout<<"enter the element after which you wish to add"<<endl;
+                        cin>>key;
+                        
+                        obj7.addafterkey(ele,key);
+                        obj7.display();
+                    }
                 }
                 cout<<"Do you wish to add more element:";
                 cin>>flag1;
@@ -829,54 +1094,194 @@ int main(){
                 cout<<"Which operation you wish to perform"<<endl;
                 cin>>n2;
                 if(n2==1){
-                    obj1.deleteatbegin();
-                    obj1.display();
+                    if(dt==1){
+                         obj1.deleteatbegin();
+                         obj1.display();
+                    }
+                    else if(dt==2){
+                         obj3.deleteatbegin();
+                         obj3.display();
+                    }
+                    else if(dt==3){
+                         obj5.deleteatbegin();
+                         obj5.display();
+                    }
+                    else if(dt==4){
+                         obj7.deleteatbegin();
+                         obj7.display();
+                    }
                 }
                 else if(n2==2){
-                    obj1.deleteatend();
-                    obj1.display();
+                    if(dt==1){
+                         obj1.deleteatend();
+                         obj1.display();
+                    }
+                    else if(dt==2){
+                        obj3.deleteatend();
+                         obj3.display();
+                    }
+                    else if(dt==3){
+                        obj5.deleteatend();
+                         obj5.display();
+                    }
+                    else if(dt==4){
+                        obj7.deleteatend();
+                         obj7.display();
+                    }
                 }
                 else if(n2==3){
                     int pos;
                     cout<<"Enter the position at which you wish to delete";
                     cin>>pos;
-                    obj1.deleteatpos(pos);
-                    obj1.display();
+                     if(dt==1){
+                        obj1.deleteatpos(pos);
+                        obj1.display();
+                    }
+                    else if(dt==2){
+                        obj3.deleteatpos(pos);
+                        obj3.display();
+                    }
+                    else if(dt==3){
+                        obj5.deleteatpos(pos);
+                        obj5.display();
+                    }
+                    else if(dt==4){
+                        obj7.deleteatpos(pos);
+                        obj7.display();
+                    }
                 }
                 else if(n2==4){
                     int pos;
                     cout<<"Enter the position before which you wish to delete";
                     cin>>pos;
-                    obj1.deletebeforepos(pos);
-                    obj1.display();
+                     if(dt==1){
+                        obj1.deletebeforepos(pos);
+                        obj1.display();
+                    }
+                    else if(dt==2){
+                        obj3.deletebeforepos(pos);
+                        obj3.display();
+                    }
+                    else if(dt==3){
+                        obj5.deletebeforepos(pos);
+                        obj5.display();
+                    }
+                    else if(dt==4){
+                        obj7.deletebeforepos(pos);
+                        obj7.display();
+                    }
+                    
                 }
                 else if(n2==5){
-                    int pos;
+                   int pos;
                     cout<<"Enter the position after which you wish to delete";
                     cin>>pos;
-                    obj1.deleteafterpos(pos);
-                    obj1.display();
+                     if(dt==1){
+                        obj1.deleteafterpos(pos);
+                        obj1.display();
+                    }
+                    else if(dt==2){
+                        obj3.deleteafterpos(pos);
+                        obj3.display();
+                    }
+                    else if(dt==3){
+                        obj5.deleteafterpos(pos);
+                        obj5.display();
+                    }
+                    else if(dt==4){
+                        obj7.deleteafterpos(pos);
+                        obj7.display();
+                    }
                 }
                 else if(n2==6){
-                    int key;
-                    cout<<"Enter the element at which you wish to delete";
-                    cin>>key;
-                    obj1.deleteatkey(key);
-                    obj1.display();
+                     if(dt==1){
+                          int key;
+                          cout<<"Enter the element at which you wish to delete";
+                          cin>>key;
+                           obj1.deleteatkey(key);
+                           obj1.display();
+                    }
+                    else if(dt==2){
+                        char key;
+                          cout<<"Enter the element at which you wish to delete";
+                          cin>>key;
+                           obj3.deleteatkey(key);
+                           obj3.display();
+                    }
+                    else if(dt==3){
+                        double key;
+                          cout<<"Enter the element at which you wish to delete";
+                          cin>>key;
+                           obj5.deleteatkey(key);
+                           obj5.display();
+                    }
+                    else if(dt==4){
+                        bool key;
+                          cout<<"Enter the element at which you wish to delete";
+                          cin>>key;
+                           obj7.deleteatkey(key);
+                           obj7.display();
+                    }
                 }
                 else if(n2==7){
-                    int key;
-                    cout<<"Enter the element before which you wish to delete";
-                    cin>>key;
-                    obj1.deletebeforekey(key);
-                    obj1.display();
+                   if(dt==1){
+                         int key;
+                         cout<<"Enter the element before which you wish to delete";
+                         cin>>key;
+                         obj1.deletebeforekey(key);
+                         obj1.display();
+                    }
+                    else if(dt==2){
+                        char key;
+                         cout<<"Enter the element before which you wish to delete";
+                         cin>>key;
+                         obj3.deletebeforekey(key);
+                         obj3.display();
+                    }
+                    else if(dt==3){
+                        double key;
+                         cout<<"Enter the element before which you wish to delete";
+                         cin>>key;
+                         obj5.deletebeforekey(key);
+                         obj5.display();
+                    }
+                    else if(dt==4){
+                        bool key;
+                         cout<<"Enter the element before which you wish to delete";
+                         cin>>key;
+                         obj7.deletebeforekey(key);
+                         obj7.display();
+                    }
                 }
                 else if(n2==8){
-                    int key;
-                    cout<<"Enter the element after which you wish to delete";
-                    cin>>key;
-                    obj1.deleteafterkey(key);
-                    obj1.display();
+                    if(dt==1){
+                         int key;
+                        cout<<"Enter the element after which you wish to delete";
+                        cin>>key;
+                        obj1.deleteafterkey(key);
+                        obj1.display();
+                    }
+                    else if(dt==2){
+                        char key;
+                        cout<<"Enter the element after which you wish to delete";
+                        cin>>key;
+                        obj3.deleteafterkey(key);
+                        obj3.display();
+                    }
+                    else if(dt==3){
+                        double key;
+                        cout<<"Enter the element after which you wish to delete";
+                        cin>>key;
+                        obj5.deleteafterkey(key);
+                        obj5.display();
+                    }
+                    else if(dt==4){
+                         bool key;
+                        cout<<"Enter the element after which you wish to delete";
+                        cin>>key;
+                        obj7.deleteafterkey(key);
+                        obj7.display();
+                    }
                 }
                 cout<<"Do you wish to peform more operation(0/1);";
                 cin>>flag2;
@@ -889,21 +1294,77 @@ int main(){
             }
         }
         else if(n==3){
-            bool flag3=true;
-            while(flag3){
-                int n3;
-                cout<<"enter the element:";
-                cin>>n3;
-                obj1.createoredered(n3);
-                obj1.display();
-                cout<<"Do you want to enter more element(0/1):";
-                cin>>flag3;
-                if(flag3==0){
-                    break;
-                }
-                else{
-                    continue;
-                }
+                if(dt==1){
+                     bool flag3=true;
+                    while(flag3){
+                        int n3;
+                        cout<<"enter the element:";
+                        cin>>n3;
+                        obj1.createoredered(n3);
+                        obj1.display();
+                        cout<<"Do you want to enter more element(0/1):";
+                        cin>>flag3;
+                        if(flag3==0){
+                            break;
+                        }
+                        else{
+                            continue;
+                        }
+                    }    
+            }
+            else if(dt==2){
+                       bool flag3=true;
+                    while(flag3){
+                        char n3;
+                        cout<<"enter the element:";
+                        cin>>n3;
+                        obj3.createoredered(n3);
+                        obj3.display();
+                        cout<<"Do you want to enter more element(0/1):";
+                        cin>>flag3;
+                        if(flag3==0){
+                            break;
+                        }
+                        else{
+                            continue;
+                        }
+                    }      
+            }
+            else if(dt==3){
+                      bool flag3=true;
+                    while(flag3){
+                        double n3;
+                        cout<<"enter the element:";
+                        cin>>n3;
+                        obj5.createoredered(n3);
+                        obj5.display();
+                        cout<<"Do you want to enter more element(0/1):";
+                        cin>>flag3;
+                        if(flag3==0){
+                            break;
+                        }
+                        else{
+                            continue;
+                        }
+                    }       
+            }
+            else if(dt==4){
+                       bool flag3=true;
+                    while(flag3){
+                        bool n3;
+                        cout<<"enter the element:";
+                        cin>>n3;
+                        obj7.createoredered(n3);
+                        obj7.display();
+                        cout<<"Do you want to enter more element(0/1):";
+                        cin>>flag3;
+                        if(flag3==0){
+                            break;
+                        }
+                        else{
+                            continue;
+                        }
+                    }      
             }
         }
         else if(n==4){
@@ -916,12 +1377,40 @@ int main(){
                 cout<<"Which sorting you wish to perform;";
                 cin>>n4;
                 if(n4==1){
-                    obj1.bubblesort();
-                    obj1.display();
+                    if(dt==1){
+                        obj1.bubblesort();
+                        obj1.display();
+                    }
+                    else if(dt==2){
+                        obj3.bubblesort();
+                        obj3.display();
+                    }
+                    else if(dt==3){
+                        obj5.bubblesort();
+                        obj5.display();
+                    }
+                    else if(dt==4){
+                        obj7.bubblesort();
+                        obj7.display();
+                    }
                 }
                 else if(n4==2){
-                    obj1.selectionsort();
-                    obj1.display();
+                   if(dt==1){
+                         obj1.selectionsort();
+                         obj1.display();
+                    }
+                    else if(dt==2){
+                         obj3.selectionsort();
+                        obj3.display();
+                    }
+                    else if(dt==3){
+                         obj5.selectionsort();
+                        obj5.display();
+                    }
+                    else if(dt==4){
+                        obj7.selectionsort();
+                        obj7.display();
+                    }
                 }
                 cout<<"DO you want to continue(0/1):";
                 cin>>flag4;
@@ -934,16 +1423,143 @@ int main(){
             }
         }
         else if(n==5){
-            obj1.reverse();
-            obj1.display();
+             if(dt==1){
+                obj1.reverse();
+                obj1.display();
+            }
+            else if(dt==2){
+                obj3.reverse();
+                obj3.display();
+            }
+            else if(dt==3){
+                obj5.reverse();
+                obj5.display();
+            }
+            else if(dt==4){
+                obj7.reverse();
+                obj7.display();
+            }
         }
         else if(n==6){
-            obj1.concatenate(obj1);
+            cout<<"Insert element to add at end of second list"<<endl;
+           bool flag2=true;
+           while(flag2){
+               if(dt==1){
+                   int ele;
+                cout<<"Enter the element"<<endl;
+                cin>>ele;
+                obj2.addatend(ele);
+                obj2.display();
+                cout<<"Do yo want to add more 0/1"<<endl;
+                cin>>flag2;
+               }
+               else if(dt==2){
+                    char ele;
+                cout<<"Enter the element"<<endl;
+                cin>>ele;
+                obj4.addatend(ele);
+                obj4.display();
+                cout<<"Do yo want to add more 0/1"<<endl;
+                cin>>flag2;
+               }
+               else if(dt==3){
+                    double ele;
+                cout<<"Enter the element"<<endl;
+                cin>>ele;
+                obj6.addatend(ele);
+                obj6.display();
+                cout<<"Do yo want to add more 0/1"<<endl;
+                cin>>flag2;
+               }
+               else if(dt==4){
+                      bool ele;
+                cout<<"Enter the element"<<endl;
+                cin>>ele;
+                obj8.addatend(ele);
+                obj8.display();
+                cout<<"Do yo want to add more 0/1"<<endl;
+                cin>>flag2;
+               }
+                
+                
+           }
+           if(dt==1){
+               obj1.concatenate(obj2);
             obj1.display();
+           }
+           else if(dt==2){
+               obj3.concatenate(obj4);
+            obj3.display();
+           }
+           else if(dt==3){
+               obj5.concatenate(obj6);
+            obj5.display();
+           }
+           else if(dt==4){
+               obj7.concatenate(obj8);
+            obj7.display();
+           }
         }
         else if(n==7){
-            obj1.merge(obj1);
+            cout<<"Insert element to add at end of second list"<<endl;
+           bool flag2=true;
+           while(flag2){
+               if(dt==1){
+                   int ele;
+                cout<<"Enter the element"<<endl;
+                cin>>ele;
+                obj2.addatend(ele);
+                obj2.display();
+                cout<<"Do yo want to add more 0/1"<<endl;
+                cin>>flag2;
+               }
+               else if(dt==2){
+                    char ele;
+                cout<<"Enter the element"<<endl;
+                cin>>ele;
+                obj4.addatend(ele);
+                obj4.display();
+                cout<<"Do yo want to add more 0/1"<<endl;
+                cin>>flag2;
+               }
+               else if(dt==3){
+                    double ele;
+                cout<<"Enter the element"<<endl;
+                cin>>ele;
+                obj6.addatend(ele);
+                obj6.display();
+                cout<<"Do yo want to add more 0/1"<<endl;
+                cin>>flag2;
+               }
+               else if(dt==4){
+                      bool ele;
+                cout<<"Enter the element"<<endl;
+                cin>>ele;
+                obj8.addatend(ele);
+                obj8.display();
+                cout<<"Do yo want to add more 0/1"<<endl;
+                cin>>flag2;
+               }
+                
+                
+           }
+            if(dt==1){
+               obj1=obj1.merge(obj2);
             obj1.display();
+           }
+           else if(dt==2){
+               obj3.merge(obj4);
+            obj3.display();
+           }
+           else if(dt==3){
+               obj5.merge(obj6);
+            obj5.display();
+           }
+           else if(dt==4){
+               obj7.merge(obj8);
+            obj7.display();
+           }
+           
         }
         cout<<"DO you wish to continue(0/1):";
         cin>>flag;
