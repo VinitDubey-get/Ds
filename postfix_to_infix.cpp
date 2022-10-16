@@ -1,4 +1,4 @@
-// to evaluate a postfix expressions and convert it into infix 
+// a postfix expressions convert  into infix 
 #include<iostream>
 #include<stack>
 using namespace std;
