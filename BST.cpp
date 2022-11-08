@@ -152,36 +152,156 @@ int main(){
 
         cout<<"Enter which operation do you want to perform"<<endl;
         cin>>n;
+        
+        
         if(n==1){
-            if(dt==1){
-
-            }
-            else if(dt==2){
-
-            }
-            else if(dt==3){
-
-            }
-            else{
-
+            bool flag2=true;
+            while(flag2){
+                if(dt==1){
+                cout<<"Enter the number to insert "<<endl;
+                int data;
+                cin>>data;
+                a.insertion(data);
+                }
+                else if(dt==2){
+                cout<<"Enter the character to insert "<<endl;
+                char data;
+                cin>>data;
+                b.insertion(data);
+                }
+                else if(dt==3){
+                    cout<<"Enter the boolean number to insert "<<endl;
+                bool data;
+                cin>>data;
+                c.insertion(data);
+                
+                }
+                else{
+                    cout<<"Enter the double  to insert "<<endl;
+                double data;
+                cin>>data;
+                d.insertion(data);
+                }
+                cout<<"Do you want to insert more 0/1"<<endl;
+                cin>>flag2;
             }
         }
         else if(n==2){
              if(dt==1){
-
+                  cout<<"Enter the element to be searched"<<endl;
+                  int key;
+                  cin>>key;
+                  if(a.search(key)){
+                    cout<<key<<" is present in tree "<<endl;
+                  }
+                  else{
+                    cout<<key<<" is not present in tree"<<endl;
+                  }
             }
             else if(dt==2){
-
+                 cout<<"Enter the element to be searched"<<endl;
+                  char key;
+                  cin>>key;
+                  if(b.search(key)){
+                    cout<<key<<" is present in tree "<<endl;
+                  }
+                  else{
+                    cout<<key<<" is not present in tree"<<endl;
+                  }
             }
             else if(dt==3){
-
-            }
+                 cout<<"Enter the element to be searched"<<endl;
+                  bool key;
+                  cin>>key;
+                  if(c.search(key)){
+                    cout<<key<<" is present in tree "<<endl;
+                  }
+                  else{
+                    cout<<key<<" is not present in tree"<<endl;
+                  }
+            } 
             else{
-                
+                cout<<"Enter the element to be searched"<<endl;
+                  double key;
+                  cin>>key;
+                  if(d.search(key)){
+                    cout<<key<<" is present in tree "<<endl;
+                  }
+                  else{
+                    cout<<key<<" is not present in tree"<<endl;
+                  }
             }
         }
         else if(n==3){
-
+            bool flag2=true;
+            while(flag2){
+                cout<<"1. Preorder"<<endl;
+                cout<<"2. Inorder"<<endl;
+                cout<<"3. Postorder"<<endl;
+                cout<<"Which traversal do you want to perform"<<endl;
+                int choice;
+                cin>>choice;
+                if(choice==1){
+                    if(dt==1){
+                        cout<<"Preorder Traversal is : ";
+                        a.preorder();
+                    }
+                    else if(dt==2){
+                         cout<<"Preorder Traversal is : ";
+                        b.preorder();
+                    }
+                    else if(dt==3){
+                        cout<<"Preorder Traversal is : ";
+                        c.preorder();
+                    }
+                    else if(dt==4){
+                        cout<<"Preorder Traversal is : ";
+                        d.preorder();
+                    }
+                }
+                else if(choice==2){
+                     if(dt==1){
+                        cout<<"Preorder Traversal is : ";
+                        a.inorder();
+                    }
+                    else if(dt==2){
+                         cout<<"Preorder Traversal is : ";
+                        b.inorder();
+                    }
+                    else if(dt==3){
+                        cout<<"Preorder Traversal is : ";
+                        c.inorder();
+                    }
+                    else if(dt==4){
+                        cout<<"Preorder Traversal is : ";
+                        d.inorder();
+                    }
+                }
+                else if(choice==3){
+                    if(dt==1){
+                        cout<<"Preorder Traversal is : ";
+                        a.postorder();
+                    }
+                    else if(dt==2){
+                         cout<<"Preorder Traversal is : ";
+                        b.postorder();
+                    }
+                    else if(dt==3){
+                        cout<<"Preorder Traversal is : ";
+                        c.postorder();
+                    }
+                    else if(dt==4){
+                        cout<<"Preorder Traversal is : ";
+                        d.postorder();
+                    }
+                }
+                else{
+                    cout<<"Wrong choice"<<endl;
+                }
+                cout<<endl;
+                cout<<"Do you want to continue 0/1"<<endl;
+                cin>>flag2;
+            }
         }
         else{
             cout<<"Wrong choice"<<endl;
