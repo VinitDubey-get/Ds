@@ -116,10 +116,10 @@ int main(){
 //    cout<<"Enter the size of the stack "<<endl;
 //    int size;
 //    cin>>size;
-   stacks<int>a();
-   stacks<char>b(size);
-   stacks<bool>c(size);
-   stacks<double>d(size);
+   stacks<int>a;
+   stacks<char>b;
+   stacks<bool>c;
+   stacks<double>d;
 
    bool flag=true;
    while(flag){
