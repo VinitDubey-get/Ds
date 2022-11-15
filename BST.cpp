@@ -1,5 +1,7 @@
 // creating a binary search tree and applying all thre traversals
 #include<iostream>
+#include<stack>
+#include<queue>
 using namespace std;
 
 template<class T>
@@ -80,8 +82,30 @@ class bst{
         return false;
     }
 
-    // traversals
+
+    // traversal bfs
+    void bfs(){
+        queue<node<T>*>q;
+        node<T>*p;
+        p=root;
+        q.push(p);
+        while(!q.empty()){
+            node<T>*temp=q.front();
+            q.pop();
+            cout<<temp->data<<" ";
+            if(temp->left!=NULL){
+                q.push(temp->left);
+            }
+            if(temp->right!=NULL){
+                q.push(temp->right);
+            }
+        }
+    }
+
+    // traversals dfs
 private:
+
+
    void pre(node<T>* root){
         if(root==NULL){
             return;
@@ -108,11 +132,24 @@ private:
         post(root->right);
          cout<<root->data<<" ";
     }  
-
+    
+    // height
+    int heighttree(node<T>*root){
+        if(root==0){
+            return 0;
+        }
+        int lefth=heighttree(root->left);
+        int righth=heighttree(root->right);
+        return max(lefth,righth)+1;
+    }
 
 
 
     public:
+    int height(){
+        heighttree(root);
+    }
+
     void preorder(){
         pre(root);
     }
@@ -122,6 +159,104 @@ private:
    void inorder(){
         inor(root);
     }
+
+    // iterative
+    void preorderit(){
+        node<T>*r=root;
+        stack<node<T>*>st;
+        st.push(r);
+        while(!st.empty()){
+            node<T>*p=st.top();
+            st.pop();
+            while(p!=NULL){
+                cout<<p->data<<" ";
+                if(p->right!=NULL){
+                    st.push(p->right);
+                    
+                }
+                p=p->left;
+            }
+        }
+    }
+    
+    void postorderit(){
+        node<T>*p=root;
+        node<T>*q=root;
+        stack<node<T>*>st;
+        while(p!=NULL){
+            while(p->left!=NULL){
+                st.push(p);
+                p=p->left;
+            }
+            while((p!=0 && p->right == 0)|| p->right==q){
+                cout<<p->data<<" ";
+                q=p;
+                if(st.empty()){
+                    return;
+                }
+                p=st.top();
+                st.pop();
+            }
+            st.push(p);
+            p=p->right;
+        }
+    }
+    
+    void inorderit(){
+        node<T>*p=root;
+        stack<node<T>*>st;
+        while(p!=0){
+            while(p!=0){
+                if(p->right){
+                    st.push(p->right);
+                }
+                    st.push(p);
+                    p=p->left;
+                
+            }
+            p=st.top();
+            st.pop();
+            while(!st.empty() && p->right==0){
+                cout<<p->data<<" ";
+                p=st.top();
+                st.pop();
+            }
+            cout<<p->data<<" ";
+            if(!st.empty()){
+                p=st.top();
+                st.pop();
+            }
+            else{
+                p=0;
+            }
+        }
+    }
+
+
+    // mirror binary tree
+   private: void mirror(node<T>*root){
+        if(root==NULL){
+            return;
+        }
+        mirror(root->left);
+        mirror(root->right);
+
+        swap(root->left,root->right);
+    }
+    public: 
+    void mirrorrtree(){
+        mirror(root);
+    }
+
+    // deletion of node 
+    void delete(T data){
+        if(root==NULL){
+            cout<<"Tree Empty"<<endl;
+            return;
+        }
+        
+    }
+    
 
 
 };
