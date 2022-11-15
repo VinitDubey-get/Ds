@@ -1,24 +1,27 @@
 #include <iostream>
 using namespace std;
 
+template<class T>
 class Qnode
 {
-    int e;
-    Qnode *next;
+    T e;
+    Qnode<T> *next;
 
 public:
-    Qnode(int e = 0, Qnode *next = NULL)
+    Qnode(T e = 0, Qnode<T> *next = NULL)
     {
         this->e = e;
         this->next = next;
     }
+    template<class U>
     friend class MyDoubleendedqueue;
 };
 
+template<class T>
 class MyDoubleendedqueue
 {
-    Qnode *front;
-    Qnode *back;
+    Qnode<T> *front;
+    Qnode<T> *back;
 
 public:
     MyDoubleendedqueue()
@@ -29,33 +32,33 @@ public:
     {
         return (front == NULL);
     }
-    int Frontelement()
+    T Frontelement()
     {
         if (empty())
         {
-            cout << "linked lists Queue is empty" << endl;
-            return -1;
+            //cout << "linked lists Queue is empty" << endl;
+            return NULL;
         }
         else
         {
             return front->e;
         }
     }
-    int backelement()
+    T backelement()
     {
         if (empty())
         {
-            cout << "linked lists Queue is empty" << endl;
-            return -1;
+            //cout << "linked lists Queue is empty" << endl;
+            return NULL;
         }
         else
         {
             return back->e;
         }
     }
-    void enqueueBack(int e)
+    void enqueueBack(T e)
     {
-        Qnode *p = new Qnode(e);
+        Qnode<T> *p = new Qnode<T>(e);
         if (empty())
         {
             back = front = p;
@@ -67,9 +70,9 @@ public:
             back = p;
         }
     }
-    void enqueueFront(int e)
+    void enqueueFront(T e)
     {
-        Qnode *p = new Qnode(e);
+        Qnode<T> *p = new Qnode<T>(e);
         if (empty())
         {
             back = front = p;
@@ -89,7 +92,7 @@ public:
         }
         else
         {
-            Qnode *p = front;
+            Qnode<T> *p = front;
             front = front->next;
             delete (p);
         }
@@ -103,7 +106,7 @@ public:
         }
         else
         {
-            Qnode *p = front;
+            Qnode<T> *p = front;
             while (p->next != NULL && p->next != back)
             {
                 p = p->next;
@@ -124,10 +127,10 @@ public:
 
         if (empty())
         {
-            cout << "empty Queue LInked Lists" << endl;
+            cout << "empty Queue" << endl;
             return;
         }
-        Qnode *p = front;
+        Qnode<T> *p = front;
 
         while (p != back)
         {
@@ -137,71 +140,262 @@ public:
         cout << p->e << endl;
     }
 };
+
+
+
 int main()
 {
-    int key;
-    int b;
-    MyDoubleendedqueue obj;
-
-    do
-    {
-        cout << "Enter the choice from the given  option" << endl;
-        cout << "1. Empty" << endl;
-        cout << "2. Front of queue" << endl;
-        cout << "3. BAck of queue" << endl;
-        cout << "4. BAck Enqueue in queue" << endl;
-        cout << "5. Front Enqueue in queue" << endl;
-        cout << "6. Front dequeue in queue" << endl;
-        cout << "7. back dequeue in queue" << endl;
-        cin >> key;
-        switch (key)
-        {
-        case 1:
-            if (obj.empty())
-            {
-                cout << "Empty circular Linked lists Queue" << endl;
+    MyDoubleendedqueue<int> obj1;
+    MyDoubleendedqueue<char> obj2;
+    MyDoubleendedqueue<bool> obj3;
+    MyDoubleendedqueue<double> obj4;
+    
+    cout<<"Which data type do you want to work upon"<<endl;
+    cout<<"1. Integers"<<endl;
+    cout<<"2. Characters"<<endl;
+    cout<<"3. Boolean"<<endl;
+    cout<<"4. Double"<<endl;
+    int ch;
+    cin>>ch;
+    bool flag=true;
+    while(flag){
+        cout<<"Menu "<<endl;
+        cout<<"1. To print the front element of queue"<<endl;
+        cout<<"2. To print the last element of queue"<<endl;
+        cout<<"3. Insertion at front"<<endl;
+        cout<<"4. Insertion at end"<<endl;
+        cout<<"5. deletion at front"<<endl;
+        cout<<"6. deletion at back"<<endl;
+        cout<<"7. to check whether queue is empty or not"<<endl;
+        cout<<"8. To Display queue elements"<<endl;
+        int n;
+        cin>>n;
+        
+        if(n==1){
+            if(ch==1){
+                if(obj1.Frontelement()==NULL){
+                    cout<<"queue is empty"<<endl;
+                }
+                else{
+                    cout<<obj1.Frontelement()<<endl;
+                }
             }
-            else
-            {
-                cout << "Non empty" << endl;
+            else if(ch==2){
+                      if(obj2.Frontelement()==NULL){
+                    cout<<"queue is empty"<<endl;
+                }
+                else{
+                    cout<<obj2.Frontelement()<<endl;
+                }
             }
-            break;
-        case 2:
-            cout << obj.Frontelement() << endl;
-            break;
-
-        case 3:
-            cout << obj.backelement() << endl;
-            break;
-
-        case 4:
-            obj.enqueueBack(9);
-            obj.enqueueBack(95);
-            obj.enqueueBack(954);
-            obj.enqueueBack(9549);
-            obj.enqueueBack(95490);
-            obj.enqueueBack(954948);
-            obj.display();
-
-            break;
-        case 5:
-            obj.enqueueFront(7);
-            obj.enqueueFront(75);
-
-            obj.display();
-
-            break;
-        case 6:
-            obj.dequeueFront();
-            obj.display();
-            break;
-        case 7:
-            obj.dequeueBack();
-            obj.display();
-            break;
+            else if(ch==3){
+                if(obj3.Frontelement()==NULL){
+                    cout<<"queue is empty"<<endl;
+                }
+                else{
+                    cout<<obj3.Frontelement()<<endl;
+                }
+            }
+            else if(ch==4){
+                if(obj4.Frontelement()==NULL){
+                    cout<<"queue is empty"<<endl;
+                }
+                else{
+                    cout<<obj4.Frontelement()<<endl;
+                }
+            }
         }
-        cout << "Enter 0 if want to exit  else press 1" << endl;
-        cin >> b;
-    } while (b != 0);
+        else if(n==2){
+                          if(ch==1){
+                if(obj1.backelement()==NULL){
+                    cout<<"queue is empty"<<endl;
+                }
+                else{
+                    cout<<obj1.backelement()<<endl;
+                }
+            }
+            else if(ch==2){
+                      if(obj2.backelement()==NULL){
+                    cout<<"queue is empty"<<endl;
+                }
+                else{
+                   cout<<obj2.backelement()<<endl;
+                }
+            }
+            else if(ch==3){
+                if(obj3.backelement()==NULL){
+                    cout<<"queue is empty"<<endl;
+                }
+                else{
+                    cout<<obj3.backelement()<<endl;
+                }
+            }
+            else if(ch==4){
+                if(obj4.backelement()==NULL){
+                    cout<<"queue is empty"<<endl;
+                }
+                else{
+                    cout<<obj4.backelement()<<endl;
+                }
+            } 
+        }
+        else if(n==3){
+            bool flag1=true;
+           while(flag1){
+            if(ch==1){
+               int data;
+               cout<<"Enter the element to be inserted"<<endl;
+               cin>>data;
+               obj1.enqueueFront(data);
+            }
+            else if(ch==2){
+                               char data;
+               cout<<"Enter the element to be inserted"<<endl;
+               cin>>data;
+               obj2.enqueueFront(data);
+            }
+            else if(ch==3){
+               bool data;
+               cout<<"Enter the element to be inserted"<<endl;
+               cin>>data;
+               obj3.enqueueFront(data);
+            }
+            else if(ch==4){
+               double data;
+               cout<<"Enter the element to be inserted"<<endl;
+               cin>>data;
+               obj4.enqueueFront(data);
+            }
+            cout<<"do you want to insert more elements"<<endl;
+            cin>>flag1;
+           }
+        }
+        else if(n==4){
+            bool flag1=true;
+            while(flag1){
+            if(ch==1){
+               int data;
+               cout<<"Enter the element to be inserted"<<endl;
+               cin>>data;
+               obj1.enqueueBack(data);
+            }
+            else if(ch==2){
+                               char data;
+               cout<<"Enter the element to be inserted"<<endl;
+               cin>>data;
+               obj2.enqueueBack(data);
+            }
+            else if(ch==3){
+               bool data;
+               cout<<"Enter the element to be inserted"<<endl;
+               cin>>data;
+               obj3.enqueueBack(data);
+            }
+            else if(ch==4){
+               double data;
+               cout<<"Enter the element to be inserted"<<endl;
+               cin>>data;
+               obj4.enqueueBack(data);
+            }
+            cout<<"do you want to insert more elements   0/1 "<<endl;
+            cin>>flag1;
+            }
+        }
+            
+       else if(n==5){
+            if(ch==1){
+               obj1.dequeueFront(); 
+            }
+            else if(ch==2){
+                obj2.dequeueFront();
+            }
+            else if(ch==3){
+                obj3.dequeueFront();
+            }
+            else if(ch==4){
+                 obj4.dequeueFront();
+            }
+        }
+        else if(n==6){
+            if(ch==1){
+               obj1.dequeueBack(); 
+            }
+            else if(ch==2){
+                obj2.dequeueBack();
+            }
+            else if(ch==3){
+                obj3.dequeueBack();
+            }
+            else if(ch==4){
+                 obj4.dequeueBack();
+            }
+        }
+        else if(n==7){
+            if(ch==1){
+                if(!obj1.empty()){
+                    cout<<"Queue is not empty"<<endl;
+                }
+                else{
+                    cout<<"Queue is  empty"<<endl;
+                }
+            }
+            else if(ch==2){
+                                if(!obj2.empty()){
+                    cout<<"Queue is not empty"<<endl;
+                }
+                else{
+                    cout<<"Queue is  empty"<<endl;
+                }
+            }
+            else if(ch==3){
+                if(!obj3.empty()){
+                    cout<<"Queue is not empty"<<endl;
+                }
+                else{
+                    cout<<"Queue is  empty"<<endl;
+                }
+            }
+            else if(ch==4){
+                if(!obj4.empty()){
+                    cout<<"Queue is not empty"<<endl;
+                }
+                else{
+                    cout<<"Queue is  empty"<<endl;
+                }
+            }
+        
+        }
+        else if(n==8){
+            if(ch==1){
+                cout<<"Queue elements are : ";
+                obj1.display();
+                cout<<endl;
+            }
+            else if(ch==2){
+               cout<<"Queue elements are : ";
+                obj2.display();
+                cout<<endl;
+            }
+            else if(ch==3){
+               cout<<"Queue elements are : ";
+                obj3.display();
+                cout<<endl;
+            
+            }
+            else if(ch==4){
+                cout<<"Queue elements are : ";
+                obj4.display();
+                cout<<endl;
+            
+            }
+        }
+       cout<<"Do you want to continue 0/1"<<endl;
+        cin>>flag;
+
+
+        
+        
+    }
+
     return 0;
 }
