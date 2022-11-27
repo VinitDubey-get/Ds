@@ -249,13 +249,141 @@ private:
     }
 
     // deletion of node 
-    void delete(T data){
-        if(root==NULL){
-            cout<<"Tree Empty"<<endl;
-            return;
-        }
-        
-    }
+    
+   // deletion by merging -- attaching the right subtree to the left node
+   void deletion(T data){
+       if(root==NULL){
+           cout<<"tree empty"<<endl;
+           return;
+       }
+       if(root->left==NULL && root->right==NULL && root->data==data){
+        //   root->data==data;
+           root=NULL;
+           return;
+       }
+       // finding the node to be deleted
+       node<T>*temp=root;
+       node<T>*prev=root;
+       bool flag=false;
+       while(temp!=NULL && temp->data!=data){
+           if(temp->data==data){
+               flag=true;
+               break;
+           }
+           if(temp->data < data){
+               prev=temp;
+               temp=temp->right;
+           }
+           else{
+               prev=temp;
+               temp=temp->left;
+           }
+           
+       }
+       if(temp==NULL){
+           cout<<"Element not present"<<endl;
+           return;
+       }
+       // now we need to delete the temp
+       
+       if(temp->left == NULL && temp->right==NULL){
+           if(prev->left==temp){
+               prev->left=NULL;
+           }
+           else{
+               prev->right=NULL;
+           }
+           delete temp;
+           return;
+       }
+       
+       
+       // temp has at least one child
+       if(temp->left ==NULL && temp->right!=NULL){
+           if(prev->left==temp){
+               prev->left=temp->right;
+           }
+           else{
+               prev->right=temp->right;
+           }
+           delete temp;
+           return;
+       }
+        if(temp->left !=NULL && temp->right==NULL){
+           if(prev->left==temp){
+               prev->left=temp->left;
+           }
+           else{
+               prev->right=temp->left;
+           }
+           delete temp;
+           return;
+       }
+       
+      
+       
+       // temp has both left and right child
+       cout<<"1. Do you want to delete it my copying"<<endl;
+       cout<<"2. Do you want to delete by merging "<<endl;
+       int choice;
+       cin>>choice;
+       if(choice==1){
+           if(temp->left!=NULL && temp->right!=NULL){
+              node<T>*curr=temp->left;
+              if(curr->right!=NULL){
+                  node<T>*t1=temp->right;
+                  while(t1->left!=NULL){
+                      t1=t1->left;
+                  }
+                  t1->left=curr->right;
+              }
+              curr->right=temp->right;
+              if(prev->left==temp){
+                   prev->left=curr;
+                   
+               }
+               else{
+                   prev->right=curr;
+               }
+               delete temp; 
+              
+              
+           } 
+       }
+       else if(choice==2){
+          // here we would replace left successor with temp and attach right subtree to it's right
+            //   node<T>*rightmost=findright(temp->left);
+               node<T>*prev2=temp;
+               node<T>*curr=temp->left;
+               
+               while(curr->right!=NULL){
+                   prev2=curr;
+                   curr=curr->right;
+               }
+               
+                if(curr==temp->left){
+                    curr->right=temp->right;
+                }
+                else{
+                    prev2->right=NULL;
+                    curr->right=temp->right;
+                    curr->left=temp->left;
+                }
+               
+               if(prev->left==temp){
+                   prev->left=curr;
+                   
+               }
+               else{
+                   prev->right=curr;
+               }
+               delete temp; 
+       }
+       
+       
+       
+       
+   }
     
 
 
@@ -284,6 +412,7 @@ int main(){
         cout<<"1.Insertion"<<endl;
         cout<<"2.Searching"<<endl;
         cout<<"3.Printing"<<endl;
+        cout<<"4.Deletion"<<endl;
 
         cout<<"Enter which operation do you want to perform"<<endl;
         cin>>n;
@@ -435,6 +564,42 @@ int main(){
                 }
                 cout<<endl;
                 cout<<"Do you want to continue 0/1"<<endl;
+                cin>>flag2;
+            }
+        }
+        else if(n==4){
+            bool flag2=true;
+            while(flag2){
+                
+                
+                     if(dt==1){
+                          cout<<"Enter the element to be deleted"<<endl;
+                          int key;
+                          cin>>key;
+                          a.deletion(key);
+                           
+                    }
+                    else if(dt==2){
+                         cout<<"Enter the element to be searched"<<endl;
+                          char key;
+                          cin>>key;
+                          b.deletion(key);
+                    }
+                    else if(dt==3){
+                         cout<<"Enter the element to be searched"<<endl;
+                          bool key;
+                          cin>>key;
+                          c.deletion(key);
+                    } 
+                    else{
+                        cout<<"Enter the element to be searched"<<endl;
+                          double key;
+                          cin>>key;
+                          d.deletion(key);
+                    }
+                
+              
+                cout<<"Do you want to continue - 0/1"<<endl;
                 cin>>flag2;
             }
         }
