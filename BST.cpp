@@ -323,36 +323,53 @@ private:
       
        
        // temp has both left and right child
-       cout<<"1. Do you want to delete it my copying"<<endl;
-       cout<<"2. Do you want to delete by merging "<<endl;
+       cout<<"1. Do you want to delete it my mergint"<<endl;
+       cout<<"2. Do you want to delete by copying "<<endl;
        int choice;
        cin>>choice;
        if(choice==1){
-           if(temp->left!=NULL && temp->right!=NULL){
-              node<T>*curr=temp->left;
-              if(curr->right!=NULL){
-                  node<T>*t1=temp->right;
-                  while(t1->left!=NULL){
-                      t1=t1->left;
-                  }
-                  t1->left=curr->right;
-              }
-              curr->right=temp->right;
-              if(prev->left==temp){
-                   prev->left=curr;
+//            if(temp->left!=NULL && temp->right!=NULL){
+//               node<T>*curr=temp->left;
+//               if(curr->right!=NULL){
+//                   node<T>*t1=temp->right;
+//                   while(t1->left!=NULL){
+//                       t1=t1->left;
+//                   }
+//                   t1->left=curr->right;
+//               }
+//               curr->right=temp->right;
+//               if(prev->left==temp){
+//                    prev->left=curr;
                    
-               }
-               else{
-                   prev->right=curr;
-               }
-               delete temp; 
-              
+//                }
+//                else{
+//                    prev->right=curr;
+//                }
+//                delete temp; 
+              // logic of delete by mergin
+                if(temp->left ==NULL && temp->right!=NULL){
+                     // we have prev also
+                     node<T>*curr=temp->left;
+                     node<T>*t1=temp->right;
+                     while(t1->left!=NULL){
+                        t1=t1->left;
+                     }      
+                     // now t1 is inorder successor
+                     t1->left=curr;
+                     if(prev->left==temp){
+                        prev->left=temp->right;
+                     }  
+                     else{
+                        prev->right=temp->right;
+                     }
+                     delete temp;
+
+                }
               
            } 
        }
        else if(choice==2){
-          // here we would replace left successor with temp and attach right subtree to it's right
-            //   node<T>*rightmost=findright(temp->left);
+          
                node<T>*prev2=temp;
                node<T>*curr=temp->left;
                
