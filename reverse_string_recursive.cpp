@@ -17,3 +17,27 @@ int main(){
     reverse(s);
     return 0;
 }
+
+// easy and more accurate recursive method
+#include<iostream>
+using namespace std;
+
+void solve(int i,string&s){
+    if(i==s.size()/2){
+        return;
+    }
+   swap(s[i],s[s.size()-i-1]);
+   solve(i+1,s);
+    
+}
+
+void rev(string &s){
+    solve(0,s);
+}
+int main(){
+    cout<<"Enter any string"<<endl;
+    string s;
+    cin>>s;
+    rev(s);
+    cout<<s<<endl;
+}
