@@ -347,7 +347,7 @@ private:
 //                }
 //                delete temp; 
               // logic of delete by mergin
-                if(temp->left ==NULL && temp->right!=NULL){
+                if(temp->left !=NULL && temp->right!=NULL){
                      // we have prev also
                      node<T>*curr=temp->left;
                      node<T>*t1=temp->right;
@@ -370,31 +370,67 @@ private:
        }
        else if(choice==2){
           
-               node<T>*prev2=temp;
-               node<T>*curr=temp->left;
+//                node<T>*prev2=temp;
+//                node<T>*curr=temp->left;
                
-               while(curr->right!=NULL){
-                   prev2=curr;
-                   curr=curr->right;
-               }
+//                while(curr->right!=NULL){
+//                    prev2=curr;
+//                    curr=curr->right;
+//                }
                
-                if(curr==temp->left){
-                    curr->right=temp->right;
-                }
-                else{
-                    prev2->right=NULL;
-                    curr->right=temp->right;
-                    curr->left=temp->left;
-                }
+//                 if(curr==temp->left){
+//                     curr->right=temp->right;
+//                 }
+//                 else{
+//                     prev2->right=NULL;
+//                     curr->right=temp->right;
+//                     curr->left=temp->left;
+//                 }
                
-               if(prev->left==temp){
-                   prev->left=curr;
+//                if(prev->left==temp){
+//                    prev->left=curr;
                    
+//                }
+//                else{
+//                    prev->right=curr;
+//                }
+//                delete temp; 
+           
+           
+           // ye shi vala hai       
+           node<T>*n2=temp;
+           node<T>*n1=temp->left;
+           while(n1->right!=0){
+           
+              n2=n1;
+               n1=n1->right;
+           }
+           if(n1==temp->left){
+              temp->data=n1->data;
+               if(n1->left!=0){
+                 n2->left=n1->left;
                }
                else{
-                   prev->right=curr;
+                 n2->left=NULL;
                }
-               delete temp; 
+               
+           
+           }
+           else{
+               temp->data=n1->data;
+               if(n1->left!=0){
+                  n2->right=n1->left;
+                   
+               
+               }
+               else{
+                   n2->right=0;
+               }
+              
+           }
+           delete n1;
+           return;
+           
        }
        
        
